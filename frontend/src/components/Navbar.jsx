@@ -1,10 +1,12 @@
 import React, { useContext, useState } from "react";
 import { assets } from "../assets/frontend_assets/assets";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 function Navbar() {
   const [visible, setvisible] = useState(false);
   const { setshowSearch, getCartCount } = useContext(ShopContext);
+  const location = useLocation();
+
   return (
     <div className="flex items-center justify-between py-5 font-medium">
       <Link to="/">
@@ -42,12 +44,14 @@ function Navbar() {
         </NavLink>
       </ul>
       <div className="flex items-center gap-6">
-        <img
-          onClick={() => setshowSearch(true)}
-          src={assets.search_icon}
-          className="w-5 cursor-pointer"
-          alt=""
-        />
+        {location.pathname === "/collection" && (
+          <img
+            onClick={() => setshowSearch(true)}
+            src={assets.search_icon}
+            className="w-5 cursor-pointer"
+            alt=""
+          />
+        )}
         <div className="group relative">
           <Link to='/login'> <img
             src={assets.profile_icon}
