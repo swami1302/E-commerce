@@ -7,6 +7,8 @@ const connectCloudinary = async () => {
         api_secret: process.env.CLOUDINARY_API_SECRET
     })
     console.log('Cloudinary connected'); // Removed the comment
+    console.log(cloudinary.config());
+    
     
 }
 

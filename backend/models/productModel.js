@@ -10,7 +10,7 @@ const productSchema = mongoose.Schema({
         required: true,
     },
     image: {
-        type: String,
+        type: Array,
         required: true,
     },
     price: {
@@ -21,7 +21,7 @@ const productSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    subCategory: {
+    subcategory: {
         type: String,
         required: true,
     },
@@ -29,7 +29,7 @@ const productSchema = mongoose.Schema({
         type: Array,
         required: true,
     },
-    bestSeller: {
+    bestseller: {
         type: Boolean,
         required: true,
     },
