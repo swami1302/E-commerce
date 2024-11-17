@@ -87,6 +87,20 @@ const registerUser = async (req, res) => {
 //Route for admin login
 const adminLogin = async (req, res) => {
     // res.send({msg:'Admin logged in'});
+    try {
+        const {email,password}=req.body;
+
+        //Validation of user email and password
+        if(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD){
+            const token=jwt.sign(email+password,process.env.JWT_SECRET);
+            res.status(200).json({token,success:true});
+        }else{
+            return res.status(400).json({msg:'Invalid email or password',success:false});
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({msg:'Something went wrong',success:false});
+    }
 }
 
 export { loginUser, registerUser, adminLogin }
