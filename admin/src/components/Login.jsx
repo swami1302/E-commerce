@@ -11,9 +11,10 @@ function Login({settoken}) {
       e.preventDefault();
       console.log(email,password);
       const response = await axios.post(backendUrl+'/api/user/adminLogin',{email,password});
-      // console.log(response);
+      console.log(response);
       if(response.data.success){
         settoken(response.data.token);
+        toast.success(response.data.msg);
       }else{
         toast.error(response.data.msg);
         console.log(response.data.msg);

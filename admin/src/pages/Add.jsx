@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { assets } from '../assets/assets'
+import axios from 'axios';
+import { backendUrl } from '../App';
 
-function Add() {
+function Add({token}) {
   const [image1, setimage1] = useState(false);
   const [image2, setimage2] = useState(false);
   const [image3, setimage3] = useState(false);
@@ -16,10 +18,31 @@ function Add() {
   const [sizes, setsizes] = useState([]);
 
   const onSubmithandler = async (e)=>{
-    
+    e.preventDefault();
+    try{
+      const formData = new FormData();
+      image1 && formData.append("image1", image1);
+      image2 && formData.append("image2", image2);
+      image3 && formData.append("image3", image3);
+      image4 && formData.append("image4", image4);
+
+      formData.append("name", name);
+      formData.append("description", Description);
+      formData.append("price", price);
+      formData.append("category", category);
+      formData.append("subcategory", subCategory);
+      formData.append("bestSeller", bestSeller);
+      formData.append("size", JSON.stringify(sizes));
+      console.log(formData);
+      const response = await axios.post(backendUrl+"/api/product/add", formData,{headers:{token}});
+      console.log(response.data);
+    }catch(error){
+      console.log(error);
+    }
+
   }
   return (
-    <form onSubmit={onSubmithandler(Event)} className='flex flex-col items-start w-full gap-3'>
+    <form onSubmit={onSubmithandler} className='flex flex-col items-start w-full gap-3'>
       <div>
         <p className='mb-2'>Upload Image</p>
         <div className='flex gap-2'>
